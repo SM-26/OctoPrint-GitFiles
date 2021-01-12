@@ -103,6 +103,10 @@ In your github/GitLab account, go into your profile settings and open the sectio
 
 Once saved, you'll need to test this first on the Raspberry to accept the key.  Adjust the URL for SSH authentication, changing the protocol.  Instead of beginning with `https://host/`, you start the URL with `git@host:github.com:` and finishing with your case-sensitive ID and repository.
 
+NOTE: If you are using Github.com, it's recommended that you use "Deploy keys" functionality of the repository in question. This allows you to grant read-only access to a single repository as an alternative to granting read-only access to all the repositories on your Github account when you add keys to your user account.
+
+![Screenshot from 2020-04-26 11-52-50](https://user-images.githubusercontent.com/125088/80304156-990f4800-87b4-11ea-8e0a-1720344cb8f2.png)
+
 Example:
 ```
 git@github.com:YourUserID/repo.git
@@ -128,6 +132,16 @@ Now that you've initially tested your keypair and you no longer need that tempor
 ```
 pi@octopi:~ $ cd ~ && rm -rF tmp
 ```
+
+If you use a custom named private key file and you get "Permission denied (publickey)." or similar error when trying to clone the repo, you may need to tell ssh which private key file to use by adding the following content to ``~/.ssh/config`` file.
+
+```ini
+Host github.com
+    IdentityFile ~/.ssh/id_rsa_github
+    IdentitiesOnly yes
+```
+
+``~/.ssh/id_rsa_github`` should point to the private key file you created above.
 
 ---------------------------------------------
 
